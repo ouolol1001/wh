@@ -26,6 +26,7 @@ switch($method){
             $result = $conn->query("SELECT * FROM api");
             echo json_encode($result->fetch_all(MYSQLI_ASSOC));
         }
+        break;
 
     case 'POST':
         $stmt = json_decode(file_get_contents("php://input"),true);
@@ -37,6 +38,7 @@ switch($method){
             http_response_code(500);
             echo json_encode(['error' => 'failed to create api']);
         }
+        break;
 }
 
 ?>
