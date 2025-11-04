@@ -21,7 +21,10 @@ switch($method){
             $stmt->bind_param('i',$id);
             $stmt->execute();
             $result = $stmt->get_result();
-            echo_json_encode($result->fetch_assoc() ?: ['error' => 'api database not found']);
+            echo json_encode($result->fetch_assoc() ?: ['error' => 'api database not found']);
+        }else{
+            $result = $conn->query("SELECT * FROM api");
+            echo json_encode($result->fetch_all(MYSQLI_ASSOC));
         }
 }
 
