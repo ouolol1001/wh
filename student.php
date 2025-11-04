@@ -44,6 +44,24 @@ switch($method){
                 echo json_encode(['error' => 'Failed to create API']);
             }
             break;
+
+            case 'PUT':
+                if($id){
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Missing api']);
+                    exit();
+                }
+
+                $stmt = json_decode(file_get_contents('php://input'),true);
+                $stmt = $conn->prepare('UPDATE api SET name = ? , age = ? WHERE id = ?');
+                if($stmt->execute()){
+                    echo json_encode(['message' => 'api update successfully']);
+                }else{
+                    http_response_code(500);
+                    echo json_encode(['error' => 'failed to update']);
+                }
+                break;
+
 }
 
 ?>
