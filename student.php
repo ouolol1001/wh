@@ -32,7 +32,7 @@ switch($method){
         $stmt = $conn->prepare("INSERT INTO api (name,age) VALUE (?,?)");
         $stmt->bind_param("si",$data['name'],$data['age']);
         if($stmt->execute()){
-            echo json_encode(['message' => 'api post successfully']);
+            echo json_encode(['message' => 'api post successfully' , 'id' => $stmt->insert_id]);
         }else{
             http_response_code(500);
             echo json_encode(['error' => 'failed to create api']);
