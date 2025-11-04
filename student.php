@@ -28,17 +28,22 @@ switch($method){
         }
         break;
 
-    case 'POST':
-        $stmt = json_decode(file_get_contents("php://input"),true);
-        $stmt = $conn->prepare("INSERT INTO api (name,age) VALUE (?,?)");
-        $stmt->bind_param("si",$data['name'],$data['age']);
-        if($stmt->execute()){
-            echo json_encode(['message' => 'api post successfully' , 'id' => $stmt->insert_id]);
-        }else{
-            http_response_code(500);
-            echo json_encode(['error' => 'failed to create api']);
-        }
-        break;
+        case 'POST':
+            $data = json_decode(file_get_contents("php://input"), true);
+
+            $stmt = $conn->prepare("INSERT INTO api (name, age) VALUES (?, ?)");
+            $stmt->bind_param("si", $data['name'], $data['age']);
+
+            if ($stmt->execute()) {
+                echo json_encode([
+                    'message' => 'API post successfully',
+                    'id' => $stmt->insert_id
+                ]);
+            } else {
+                http_response_code(500);
+                echo json_encode(['error' => 'Failed to create API']);
+            }
+            break;
 }
 
 ?>
