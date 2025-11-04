@@ -8,11 +8,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $resource = $_GET['resource'] ?? null;
 $id = $_GET['id'] ?? null;
 
-if($resource !== "students"){
-    http_response_code(404);
-    echo json_encode(["error"=>"Resource not found"]);
-    exit();
-}
+// if($resource !== "students"){
+//     http_response_code(404);
+//     echo json_encode(["error"=>"Resource not found"]);
+//     exit();
+// }
 
 switch($method){
     case 'GET':
